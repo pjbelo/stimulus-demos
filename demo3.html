@@ -1,0 +1,57 @@
+<!--
+  Stimulus Demo
+  Based on https://stimulus.hotwired.dev/handbook/
+  Managing State - Stimulus application’s state lives as attributes in the DOM; controllers themselves are largely stateless.
+-->
+
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Stimulus Demo 3</title>
+  <script type="module">
+    import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
+    window.Stimulus = Application.start()
+
+    Stimulus.register("slideshow", class extends Controller {
+      static targets = ["slide"]
+
+      initialize() {
+        this.index = 0
+        this.showCurrentSlide()
+      }
+
+      next() {
+        this.index++
+        this.showCurrentSlide()
+      }
+
+      previous() {
+        this.index--
+        this.showCurrentSlide()
+      }
+
+      showCurrentSlide() {
+        this.slideTargets.forEach((element, index) => {
+          element.hidden = index !== this.index
+        })
+      }
+    })
+  </script>
+</head>
+
+<body>
+  <h1>Stimulus Demo 3</h1>
+  <div data-controller="slideshow" >
+    <button data-action="slideshow#previous"> ← </button>
+    <button data-action="slideshow#next"> → </button>
+
+    <div data-slideshow-target="slide">🐵</div>
+    <div data-slideshow-target="slide">🙈</div>
+    <div data-slideshow-target="slide">🙉</div>
+    <div data-slideshow-target="slide">🙊</div>
+  </div>
+</body>
+
+</html>

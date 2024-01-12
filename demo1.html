@@ -1,0 +1,41 @@
+<!--
+  Stimulus Demo
+  Based on https://stimulus.hotwired.dev/handbook/
+  Controllers Bring HTML to Life [data-controller]
+  Actions Respond to DOM Events [data-action]
+  Targets Map Important Elements To Controller Properties [data-hello-target]
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stimulus Demo 1</title>
+  <script type="module">
+    import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
+    window.Stimulus = Application.start()
+
+    Stimulus.register("hello", class extends Controller {
+      static targets = ["name"]
+
+      greet() {
+        const element = this.nameTarget
+        const name = element.value
+        console.log(`Hello, ${name}!`)
+      }
+    })
+  </script>
+</head>
+
+<body>
+  <h1>Stimulus Demo 1</h1>
+  <p>See console...</p>
+  <div data-controller="hello">
+    <input data-hello-target="name" type="text">
+    <button data-action="click->hello#greet">Greet</button>
+  </div>
+</body>
+
+</html>
